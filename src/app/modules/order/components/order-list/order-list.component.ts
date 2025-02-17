@@ -1,10 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { OrderRequest, OrderResponse } from '../../interfaces/order.interface';
+import {
+  OrderRequest,
+  OrderResponse,
+  ProductOrderDto,
+} from '../../interfaces/order.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderDataService } from '../../../../shared/order-data.component';
 import { Subscription } from 'rxjs';
 import { OrderCreateComponent } from '../order-create/order-create.component';
+import { ProductOrderListComponent } from '../product-order-list/product-order-list.component';
 
 @Component({
   selector: 'app-order-list',
@@ -80,6 +85,25 @@ export class OrderListComponent implements OnInit, OnDestroy {
   onSearchChange(searchValue: string) {
     this.searchOrderInput = searchValue;
     this.filterOrders();
+  }
+
+  openProductList(order: OrderResponse) {
+    const groupedProducts: { [key: string]: ProductOrderDto } = {};
+
+    order.products.forEach((product) => {
+      if (groupedProducts[product.productId]) {
+        groupedProducts[product.productId].quantity += product.quantity;
+      } else {
+        groupedProducts[product.productId] = { ...product };
+      }
+    });
+
+    this.dialog.open(ProductOrderListComponent, {
+      width: '70%',
+      maxWidth: '100vh',
+      disableClose: false,
+      data: Object.values(groupedProducts),
+    });
   }
 
   filterOrders() {

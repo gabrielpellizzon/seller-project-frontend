@@ -44,7 +44,9 @@
             <strong>Product List</strong>
           </th>
           <td mat-cell *matCellDef="let element">
-            {{ getOrderCustomerName(element) }}
+            <button mat-icon-button (click)="openProductList(element)">
+              <mat-icon>list</mat-icon>
+            </button>
           </td>
         </ng-container>
 
