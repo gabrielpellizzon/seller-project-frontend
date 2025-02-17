@@ -58,7 +58,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
           const productToCreate: ProductRequest = data;
           this.productService.createProductEntry(productToCreate);
         } else {
-          const farmToUpdate: ProductResponse = {
+          const productToUpdate: ProductResponse = {
             ...productData,
             name: data.name,
             description: data.description,
@@ -66,7 +66,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
             price: +data.price,
           };
 
-          this.productService.updateProductEntry(productData._id, farmToUpdate);
+          this.productService.updateProductEntry(
+            productData._id,
+            productToUpdate
+          );
         }
       }
     });

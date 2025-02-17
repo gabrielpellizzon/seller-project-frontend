@@ -21,6 +21,7 @@ export class ProductOrderListComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProductEntries();
   }
+
   getProductName({ productId }: ProductOrderDto) {
     const product: ProductResponse =
       this.productService.getProductEntry(productId);
