@@ -1,14 +1,45 @@
-# SellerProjectFrontend
+## **Technologies used**
+
+- **Frontend**: Angular with Typescript.
+
+## **How to Run the Backend**
+
+### **1. Prerequisites**
+
+Make sure you have the following tools installed:
+
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+
+### **2. Environment Configuration**
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/gabrielpellizzon/seller-project-frontend
+
+   cd seller-project-frontend
+   ```
+
+2. Installing all dependencies:
+
+   Run the following npm command
+
+```bash
+   npm install
+```
+
+## **Running the Frontend**
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
 
-## Development server
+To run the project, execute de command:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+   ng serve
+```
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Navigate to `http://localhost:4200/`.
 
 ## Build
 
@@ -18,10 +49,15 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Project Structure
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```plaintext
+seller-project-frontend/
+│ └── src/
+│ └── angular.json
+│ └── package.json
+│ └── package-lock.json
+│ └── README.md
+│ └── .gitignore
+└──
+```
