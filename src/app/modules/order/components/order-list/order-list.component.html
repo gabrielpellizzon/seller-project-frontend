@@ -80,7 +80,7 @@
             <strong>Order Date</strong>
           </th>
           <td mat-cell *matCellDef="let element">
-            {{ getOrderDate(element) }}
+            {{ getOrderDate(element) | date : "medium" }}
           </td>
         </ng-container>
 

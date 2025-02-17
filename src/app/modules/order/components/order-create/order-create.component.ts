@@ -3,7 +3,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ProductResponse } from '../../../product/interfaces/product.interface';
 import { Subscription } from 'rxjs';
 import { ProductDataService } from '../../../../shared/product-data.component';
-import { CartItem } from '../../interfaces/order.interface';
+import {
+  OrderRequest,
+  ProductOrderDto,
+} from '../../interfaces/order.interface';
+import { OrderDataService } from '../../../../shared/order-data.component';
 
 @Component({
   selector: 'app-order-create',
@@ -15,12 +19,15 @@ export class OrderCreateComponent implements OnInit, OnDestroy {
   displayedColumns = ['name', 'description', 'price', 'actions'];
   searchProductInput = '';
   filteredProducts: ProductResponse[] = [];
-  cartList: CartItem[] = [];
+  cartList: ProductResponse[] = [];
 
   productEntries: ProductResponse[] = [];
   productEntriesSub = new Subscription();
 
-  constructor(private productService: ProductDataService) {}
+  constructor(
+    private productService: ProductDataService,
+    private orderService: OrderDataService
+  ) {}
 
   ngOnInit(): void {
     this.productService.getProductEntries();
@@ -69,44 +76,37 @@ export class OrderCreateComponent implements OnInit, OnDestroy {
   }
 
   addProductIntoCart(productRow: ProductResponse) {
-    const currentCart = this.cartList || [];
-    const existingProductIndex = currentCart.findIndex(
-      (product) => product._id === productRow._id
-    );
-
-    if (existingProductIndex !== -1) {
-      currentCart[existingProductIndex].quantityItem += 1;
-      this.cartList.push(...currentCart);
-    } else {
-      this.cartList.push(...currentCart, { ...productRow, quantityItem: 1 });
-      console.log(this.cartList);
-    }
+    this.cartList = [...this.cartList, { ...productRow }];
   }
 
   removeProductFromCart(productId: string) {
-    const currentCart = this.cartList;
-    const existingProductIndex = currentCart.findIndex(
-      (product) => product._id === productId
+    const indexToRemove = this.cartList.findIndex(
+      (item) => item._id === productId
     );
 
-    if (existingProductIndex !== -1) {
-      const updatedCart = [...currentCart];
-
-      if (updatedCart[existingProductIndex].quantityItem > 1) {
-        updatedCart[existingProductIndex].quantityItem -= 1;
-      } else {
-        updatedCart.splice(existingProductIndex, 1);
-      }
-
-      this.cartList.push(...updatedCart);
+    if (indexToRemove !== -1) {
+      this.cartList = this.cartList.filter(
+        (_, index) => index !== indexToRemove
+      );
     }
   }
 
   getCartItemQuantity(productId: string): number {
-    return (
-      this.cartList?.find((item) => item._id === productId)?.quantityItem || 0
-    );
+    return this.cartList.filter((item) => item._id === productId).length;
   }
 
-  onPurschase() {}
+  onPurschase() {
+    let productToBuy: ProductOrderDto[] = [];
+    this.cartList.map((product) => {
+      productToBuy.push({ productId: product._id, quantity: 1 });
+    });
+
+    const orderData: OrderRequest = {
+      customerName: 'Teste',
+      customerEmail: 'teste@email.com',
+      products: productToBuy,
+    };
+
+    this.orderService.createOrderEntry(orderData);
+  }
 }

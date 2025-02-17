@@ -1,6 +1,6 @@
 import { ProductResponse } from '../../product/interfaces/product.interface';
 
-interface ProductOrderDto {
+export interface ProductOrderDto {
   productId: string;
   quantity: number;
 }
@@ -17,8 +17,4 @@ export interface OrderResponse extends OrderRequest {
   updated: Date;
   totalAmount: number;
   __v: number;
-}
-
-export interface CartItem extends ProductResponse {
-  quantityItem: number;
 }
