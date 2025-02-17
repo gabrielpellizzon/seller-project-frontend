@@ -8,7 +8,7 @@
         type="text"
         class="form-control"
         placeholder="Search"
-        [(ngModel)]="searchProductInput"
+        [(ngModel)]="searchOrderInput"
         (ngModelChange)="onSearchChange($event)"
       />
     </div>
@@ -16,20 +16,20 @@
       mat-fab
       extended
       class="fab-button"
-      matTooltip="Add Product"
+      matTooltip="Add Order"
       matTooltipPosition="below"
-      (click)="openCreateProductDialog()"
+      (click)="openCreateOrderDialog()"
     >
       <mat-icon>add</mat-icon>
-      Add Product
+      Add Order
     </button>
 
     <button
       mat-fab
       class="icon-button"
-      matTooltip="Add Product"
+      matTooltip="Add Order"
       matTooltipPosition="below"
-      (click)="openCreateProductDialog()"
+      (click)="openCreateOrderDialog()"
     >
       <mat-icon>add</mat-icon>
     </button>
@@ -37,67 +37,50 @@
 
   <mat-card-content>
     <div class="row mx-3">
-      @if (productDataSource.data.length) {
-      <table mat-table [dataSource]="productDataSource">
-        <ng-container matColumnDef="name">
+      @if (orderDataSource.data.length) {
+      <table mat-table [dataSource]="orderDataSource">
+        <ng-container matColumnDef="productList">
           <th mat-header-cell *matHeaderCellDef>
-            <strong>Name</strong>
+            <strong>Product List</strong>
           </th>
           <td mat-cell *matCellDef="let element">
-            {{ getProductName(element) }}
+            {{ getOrderCustomerName(element) }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="description">
+        <ng-container matColumnDef="customerName">
           <th mat-header-cell *matHeaderCellDef>
-            <strong>Description</strong>
+            <strong>Customer Name</strong>
           </th>
           <td mat-cell *matCellDef="let element">
-            {{ getProductDescription(element) }}
+            {{ getOrderCustomerName(element) }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="quantity">
+        <ng-container matColumnDef="customerEmail">
           <th mat-header-cell *matHeaderCellDef>
-            <strong>Quantity</strong>
+            <strong>Customer Email</strong>
           </th>
           <td mat-cell *matCellDef="let element">
-            {{ getProductQuantity(element) }}
+            {{ getOrderCustomerEmail(element) }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="price">
+        <ng-container matColumnDef="totalAmount">
           <th mat-header-cell *matHeaderCellDef>
-            <strong>Price</strong>
+            <strong>Total Amount</strong>
           </th>
           <td mat-cell *matCellDef="let element">
-            {{ getProductPrice(element) }}
+            {{ getOrderTotalAmount(element) }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="actions">
+        <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef>
-            <strong>Actions</strong>
+            <strong>Order Date</strong>
           </th>
           <td mat-cell *matCellDef="let element">
-            <button
-              mat-icon-button
-              matTooltip="Edit Product"
-              matTooltipPosition="below"
-              (click)="openCreateProductDialog(element)"
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
-
-            <button
-              mat-icon-button
-              style="color: var(--danger)"
-              matTooltip="Delete Product"
-              matTooltipPosition="below"
-              (click)="openConfirmationDialog(element)"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
+            {{ getOrderDate(element) }}
           </td>
         </ng-container>
 
@@ -116,7 +99,7 @@
       >
         <mat-card-content class="my-3">
           <h5>
-            <strong>Empty product list</strong>
+            <strong>Empty order list</strong>
           </h5>
         </mat-card-content>
       </mat-card>

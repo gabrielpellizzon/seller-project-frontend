@@ -6,9 +6,10 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductViewComponent } from './pages/product-view/product-view.component';
 import { SharedModule } from '../../shared/shared.module';
 import { TemplateModule } from '../../template/template.module';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 @NgModule({
-  declarations: [ProductViewComponent, ProductListComponent],
+  declarations: [ProductViewComponent, ProductListComponent, ProductFormComponent],
   imports: [CommonModule, ProductRoutingModule, SharedModule, TemplateModule],
 })
 export class ProductModule {}
