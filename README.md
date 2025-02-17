@@ -16,7 +16,7 @@ Make sure you have the following tools installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/gabrielpellizzon/seller-project-frontend
+   git clone https://github.com/gabrielpellizzon/seller-project-frontend.git
 
    cd seller-project-frontend
    ```
